@@ -1,10 +1,6 @@
 /*
 
-The first should ask them the ID of the product they would like to buy.  The second message should ask how many units of the product they would like to buy.
 
-Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
-
-If not, the app should log a phrase like Insufficient quantity!, and then prevent the order from going through.
 
 However, if your store does have enough of the product, you should fulfill the customer's order.
 
@@ -15,6 +11,10 @@ This means updating the SQL database to reflect the remaining quantity.  Once th
 var mysql = require("mysql");
 
 var inquirer = require("inquirer");
+
+var howMany = 0;
+
+var what = 0;
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -32,10 +32,8 @@ connection.connect(function(err) {
 
 function inventory() {
     connection.query("SELECT item_id, product_name, price FROM products", function(err, res)  {  
-  
-     //  console.log(res);                                                              REMOVE ME REMOVE ME REMOVE ME REMOVE ME 
-
-    console.log(`   
+        
+        console.log(`   
 Item # | Product Name       |  Price   
                 `);
 
@@ -43,32 +41,73 @@ Item # | Product Name       |  Price
 
         console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price);    
 }  
-    askMe();
-
-    connection.end();
-    });
+    askMe1();
+    
+   });
 }
 
-function askMe() {
+function askMe1() {
     inquirer.prompt([{
         message: "which item # would you like to purchase?",
         type: "input",
         name: "what"
-    },{
+    
+    }]).then(function(answer){       
+        if (answer.what.length === 0 || answer.what < 1 || answer.what > 10) {
+            console.log("Please choose a valid item")
+            askMe1();
+        } else {
+            what = answer.what;
+            askMe2();
+        }
+    });
+}
+
+function askMe2() {
+    inquirer.prompt([{
+
         message: "How many would you like to purchase?",
         type: "input",
         name: "howMany"
     
     }]).then(function(answer){       
+         if (answer.howMany === "0" || answer.howMany.length === 0) {
+            console.log("Please enter a valid quantity")
+            askMe2();
+        } else {
 
-        console.log(answer.what);
-        console.log(answer.howMany);
-        
-   //  NEXT FUNCTION HERE  - CHECK IF QUANTITY IS AVAILABLE
-    
+            howMany = answer.howMany;
+            var query = "SELECT stock_quantity FROM products WHERE item_id=" + what
+            
+            connection.query(query, function(err,res) {
+               if (err) throw err
+               var stock = res[0].stock_quantity;
+               
+               if (howMany > stock) {
+                   console.log("Insufficient Quantity! - We cannot fill your order")
+                   //askMe1();
+                   inventory();
+               } else {
+                   updateInventory();
+               }
+           })
+        }
     });
-
 }
+
+
+
+
+
+function updateInventory() {
+    console.log("The updateInventory Function has been called");
+   // update the database by howMany
+   connection.end();
+}
+
+
+
+
 
 
 
