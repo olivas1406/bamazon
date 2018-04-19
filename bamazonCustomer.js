@@ -1,3 +1,4 @@
+
 /*
 
 
@@ -15,6 +16,8 @@ var inquirer = require("inquirer");
 var howMany = 0;
 
 var what = 0;
+
+var stock = 0;
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -81,7 +84,7 @@ function askMe2() {
             
             connection.query(query, function(err,res) {
                if (err) throw err
-               var stock = res[0].stock_quantity;
+               stock = res[0].stock_quantity;
                
                if (howMany > stock) {
                    console.log("Insufficient Quantity! - We cannot fill your order")
@@ -100,7 +103,12 @@ function askMe2() {
 
 
 function updateInventory() {
-    console.log("The updateInventory Function has been called");
+  //  console.log("The updateInventory Function has been called");
+    stock = (stock - howMany);
+    console.log(stock);
+
+  connection.query("SET stock_quantity = stock WHERE item_id= what" )
+
    // update the database by howMany
    connection.end();
 }
