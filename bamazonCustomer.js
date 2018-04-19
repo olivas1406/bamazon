@@ -43,11 +43,32 @@ Item # | Product Name       |  Price
 
         console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price);    
 }  
+    askMe();
+
     connection.end();
     });
 }
 
+function askMe() {
+    inquirer.prompt([{
+        message: "which item # would you like to purchase?",
+        type: "input",
+        name: "what"
+    },{
+        message: "How many would you like to purchase?",
+        type: "input",
+        name: "howMany"
+    
+    }]).then(function(answer){       
 
+        console.log(answer.what);
+        console.log(answer.howMany);
+        
+   //  NEXT FUNCTION HERE  - CHECK IF QUANTITY IS AVAILABLE
+    
+    });
+
+}
 
 
 
