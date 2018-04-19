@@ -1,6 +1,4 @@
 /*
-Then create a Node application called bamazonCustomer.js. Running this application will first display all of the items available for sale. 
-Include the ids, names, and prices of products for sale.  The app should then prompt users with two messages.
 
 The first should ask them the ID of the product they would like to buy.  The second message should ask how many units of the product they would like to buy.
 
@@ -14,6 +12,40 @@ This means updating the SQL database to reflect the remaining quantity.  Once th
 */
 
 
+var mysql = require("mysql");
+
+var inquirer = require("inquirer");
+
+var connection = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "tiMh9AwUOkKzsfX1wVBs",
+    database: "bamazon"
+});
+
+connection.connect(function(err) {
+    if (err) throw err;
+
+    inventory();
+});
+
+function inventory() {
+    connection.query("SELECT item_id, product_name, price FROM products", function(err, res)  {  
+  
+     //  console.log(res);                                                              REMOVE ME REMOVE ME REMOVE ME REMOVE ME 
+
+    console.log(`   
+Item # | Product Name       |  Price   
+                `);
+
+       for (var r in res) {
+
+        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price);    
+}  
+    connection.end();
+    });
+}
 
 
 
