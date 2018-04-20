@@ -35,20 +35,35 @@ inquirer.prompt([{
     switch (response.manager) {
         case "View Products for Sale": 
         console.log("call to DB for products, etc...")                      // REMOVE ME REMOVE ME REMOVE ME
+        // call function to pull from Db
         break;
 
         case "View Low Inventory": 
         console.log("show low inventory")                                   // REMOVE ME REMOVE ME REMOVE ME
+        // call function to pull from DB
         break;
 
         case "Add to Inventory": 
         console.log("Add inventory to DB")                                  // REMOVE ME REMOVE ME REMOVE ME
+        // call functiom to add to DB
         break;
 
         case "Add New Product": 
         console.log("Add product to DB")                                    // REMOVE ME REMOVE ME REMOVE ME
+        // call function to add to DB
     
     }   
 
 })
+
+
+
+
+
+
+
+
+
+
+
 
