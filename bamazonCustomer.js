@@ -107,10 +107,32 @@ function updateInventory() {
     stock = (stock - howMany);
     console.log(stock);
 
-  connection.query("SET stock_quantity = stock WHERE item_id= what" )
+  connection.query("UPDATE products SET stock_quantity = " + stock + "WHERE item_id = " + what, function(err) {
+   // connection.query("SET stock_quantity = " + stock, function(err) {
+    // if (err) throw err
 
    // update the database by howMany
+
+
+/*   connection.query(
+  //  "UPDATE products SET ? WHERE ?",
+    [
+      {
+        stock_quantity: stock
+      },
+      {
+        item_id: what
+      }
+    ],
+    function(error) {
+      if (error) throw error;
+      */
+
+    console.log("table updated");
+    inventory();                                                //  REMOVE ME REMOVE ME REMOVE ME REMOVE ME
+
    connection.end();
+  });
 }
 
 
