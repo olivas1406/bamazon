@@ -79,7 +79,6 @@ function askMe2() {
                
                if (howMany > stock) {
                    console.log("Insufficient Quantity! - We cannot fill your order")
-                   //inventory();
                    askMe2();
                } else {
                    updateInventory();
