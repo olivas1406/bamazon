@@ -11,7 +11,6 @@ If a manager selects Add New Product, it should allow the manager to add a compl
 
 */
 
-
 var mysql = require("mysql");
 
 var inquirer = require("inquirer");
@@ -23,7 +22,6 @@ var connection = mysql.createConnection({
     password: "tiMh9AwUOkKzsfX1wVBs",  
     database: "bamazon" 
 })
-
 
 inquirer.prompt([{
     type: 'rawlist',
@@ -52,7 +50,16 @@ inquirer.prompt([{
 })
 
 function viewDB() {
+    connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res)  {  
+        
+        console.log(`   
+Item # | Product Name       |  Price   
+                `);
 
+       for (var r in res) {
+
+        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "   " + res[r].stock_quantity);    
+})
 };
 
 function showLow() {
