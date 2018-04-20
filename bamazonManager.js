@@ -58,7 +58,7 @@ Item # | Product Name       |  Price     | In Stock
 
        for (var r in res) {
 
-        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "   " + res[r].stock_quantity);    
+        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "          " + res[r].stock_quantity);    
        }
 })
 };
