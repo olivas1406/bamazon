@@ -1,9 +1,7 @@
 
 /*
 
-If a manager selects View Products for Sale, the app should list every available item: the item IDs, names, prices, and quantities.
 
-If a manager selects View Low Inventory, then it should list all items with an inventory count lower than five.
 
 If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
 
@@ -61,15 +59,53 @@ Item # | Product Name       |  Price     | In Stock
         console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "          " + res[r].stock_quantity);    
        }
 })
+    connection.end();
 };
 
 function showLow() {
+    connection.query("SELECT item_id, product_name, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
+        
+        console.log(`   
+Item # | Product Name       |  Price     | In Stock
+                `);
 
+       for (var r in res) {
+
+        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "          " + res[r].stock_quantity);    
+       }
+})
+    connection.end();
 };
 
 function addInv() {
+   
+// inquirer needs to prompt what item_id they would like to update
+// and how many they would like to add
 
+
+
+var query = "UPDATE products SET stock_quantity = " + stock + " WHERE item_id = " + what;           // STOCK and WHAT do not exist
+
+connection.query(query, function(err,) {   
+    if (err) throw err
+
+
+    connection.query("SELECT item_id, product_name, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
+        
+        console.log(`   
+Item # | Product Name       |  Price     | In Stock
+                `);
+
+       for (var r in res) {
+
+        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "          " + res[r].stock_quantity);    
+       }
+})
+    connection.end();
 };
+
+
+
 
 function addProd() {
 
