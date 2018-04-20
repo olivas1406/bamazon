@@ -53,12 +53,13 @@ function viewDB() {
     connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res)  {  
         
         console.log(`   
-Item # | Product Name       |  Price   
+Item # | Product Name       |  Price     | In Stock
                 `);
 
        for (var r in res) {
 
         console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "   " + res[r].stock_quantity);    
+       }
 })
 };
 
