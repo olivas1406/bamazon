@@ -1,13 +1,4 @@
 
-/*
-
-
-
-However, if your store does have enough of the product, you should fulfill the customer's order.
-
-This means updating the SQL database to reflect the remaining quantity.  Once the update goes through, show the customer the total cost of their purchase.
-*/
-
 
 var mysql = require("mysql");
 
@@ -88,8 +79,8 @@ function askMe2() {
                
                if (howMany > stock) {
                    console.log("Insufficient Quantity! - We cannot fill your order")
-                   //askMe1();
-                   inventory();
+                   //inventory();
+                   askMe2();
                } else {
                    updateInventory();
                }
@@ -98,50 +89,23 @@ function askMe2() {
     });
 }
 
-
-
-
-
 function updateInventory() {
-  //  console.log("The updateInventory Function has been called");
+   
     stock = (stock - howMany);
-    console.log(stock);
+    var query = "UPDATE products SET stock_quantity = " + stock + " WHERE item_id = " + what;
+    var query2 = "SELECT price FROM products WHERE item_id = " + what;
 
-  connection.query("UPDATE products SET stock_quantity = " + stock + "WHERE item_id = " + what, function(err) {
-   // connection.query("SET stock_quantity = " + stock, function(err) {
-    // if (err) throw err
+    connection.query(query, function(err,) {   
+        if (err) throw err
 
-   // update the database by howMany
+        connection.query(query2, function(err, ans) {   
+            if (err) throw err
+        var transTotal = (ans[0].price) * howMany;
+        console.log("Your Total is: $" + transTotal);
 
-
-/*   connection.query(
-  //  "UPDATE products SET ? WHERE ?",
-    [
-      {
-        stock_quantity: stock
-      },
-      {
-        item_id: what
-      }
-    ],
-    function(error) {
-      if (error) throw error;
-      */
-
-    console.log("table updated");
-    inventory();                                                //  REMOVE ME REMOVE ME REMOVE ME REMOVE ME
-
-   connection.end();
+    connection.end();
+        })
   });
 }
-
-
-
-
-
-
-
-
-
 
 
