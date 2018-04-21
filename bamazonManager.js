@@ -79,30 +79,30 @@ Item # | Product Name       |  Price     | In Stock
 
 function addInv() {
    
-// inquirer needs to prompt what item_id they would like to update
-// and how many they would like to add
+    inquirer.prompt([{
+        message: "What item ID would you like to add inventory to?",
+        type: "input",
+        name: "what"
+    },{
+        message: "How many would you like to add?",
+        type: "input",
+        name: "howMany"
+    
+    }]).then(function(answer){       
+        if (answer.howMany === "0" || answer.howMany.length === 0) {
+            console.log("Please enter a valid quantity")
+            addInv();
+        } else {
+            var query = "UPDATE products SET stock_quantity = " + stock + " WHERE item_id = " + what;  
+            connection.query(query, function(err,) {   
+                if (err) throw err
+                console.log("Inventory Updated");
+            })
+        connection.end();
+        }
+    });
+}
 
-
-
-var query = "UPDATE products SET stock_quantity = " + stock + " WHERE item_id = " + what;           // STOCK and WHAT do not exist
-
-connection.query(query, function(err,) {   
-    if (err) throw err
-
-
-    connection.query("SELECT item_id, product_name, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
-        
-        console.log(`   
-Item # | Product Name       |  Price     | In Stock
-                `);
-
-       for (var r in res) {
-
-        console.log(res[r].item_id + "       " + res[r].product_name + " " + res[r].price + "          " + res[r].stock_quantity);    
-       }
-})
-    connection.end();
-};
 
 
 
