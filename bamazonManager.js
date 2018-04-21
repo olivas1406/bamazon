@@ -2,12 +2,13 @@
 /*
 
 
-
-If a manager selects Add to Inventory, your app should display a prompt that will let the manager "add more" of any item currently in the store.
-
 If a manager selects Add New Product, it should allow the manager to add a completely new product to the store.
 
 */
+
+var what = 0;
+
+var howMany = 0;
 
 var mysql = require("mysql");
 
@@ -93,18 +94,34 @@ function addInv() {
             console.log("Please enter a valid quantity")
             addInv();
         } else {
-            var query = "UPDATE products SET stock_quantity = " + stock + " WHERE item_id = " + what;  
-            connection.query(query, function(err,) {   
+            howMany = answer.howMany;
+            what = answer.what;
+
+            var query = "SELECT stock_quantity FROM products WHERE item_id = " + what;
+
+            connection.query(query, function(err, res) {   
                 if (err) throw err
-                console.log("Inventory Updated");
-            })
-        connection.end();
+                
+            howMany = +howMany + +(JSON.stringify(res[0].stock_quantity));
+
+            updateInv();
+
+            return what, howMany;
+    
+        })
         }
     });
 }
 
+function updateInv() {
 
-
+    var query2 = "UPDATE products SET stock_quantity = " + howMany + " WHERE item_id = " + what;  
+        connection.query(query2, function(err,) {   
+            if (err) throw err
+            console.log("Inventory Updated");
+            })
+            connection.end();
+        }
 
 
 function addProd() {
