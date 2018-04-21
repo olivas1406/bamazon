@@ -119,15 +119,56 @@ function updateInv() {
         connection.query(query2, function(err,) {   
             if (err) throw err
             console.log("Inventory Updated");
-            })
+        })
             connection.end();
-        }
+};
 
 
 function addProd() {
 
-};
+    inquirer.prompt([{
+        message: "What product would you like to add?",
+        type: "input",
+        name: "prodName"
+    },{
+        message: "What department does it belong in?",
+        type: "input",
+        name: "howMany"
+    },{
+        message: "How much does it cost?",
+        type: "input",
+        name: "price"
 
+    },{
+        message: "How many are in stock?",
+        type: "input",
+        name: "stock"
+    
+    
+    }]).then(function(answer){       
+        if (answer.howMany === "0" || answer.howMany.length === 0) {
+            console.log("Please enter a valid quantity")
+            addInv();
+        } else {
+            howMany = answer.howMany;
+            what = answer.what;
+
+
+
+
+
+    var query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (" + answer.prodName + "," + answer.deptName + "," + answer.price + "," + answer.stock + ")";  
+           
+    
+    console.log(query);                                                        //     REMOVE ME REMOVE ME REMOVE ME REMOVE ME
+
+
+    connection.query(query, function(err,) {   
+        if (err) throw err
+        console.log("Product Added");
+    })
+        connection.end();
+};
 
 
 
