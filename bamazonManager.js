@@ -57,13 +57,11 @@ Item # | Product Name       |  Price     | In Stock
 };
 
 function showLow() {
-    connection.query("SELECT item_id, product_name, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
+    connection.query("SELECT item_id, product_name, price, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
         
         console.log(`   
-Item # | Product Name     |  Price   | In Stock
+Item # | Product Name      |  Price   | In Stock
                 `);
-
-                //////////////////////////////    'PRICE' COMES THROUGH AS UNDEFINED /////////////////////////
 
        for (var r in res) {
 
