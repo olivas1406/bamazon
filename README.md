@@ -1,6 +1,6 @@
-<center>
+
 #BAMAZON
-</center>
+
 ---
 Bamazon is a command line application that can handle product ordering and track remaining items in stock.  This is useful for any business that needs to be able to track and update inventory.  To see the application in action, click on the link below.
 
@@ -13,7 +13,7 @@ http://danielolivas.net
 
 ---
 [CLICK ME to see it in action](https://drive.google.com/file/d/1jWSw4Okq9TIqNhuo36aVn89HmyCer3cN/view?usp=sharing)
-<br>
+<br><br>
 ---
 
 | Item ID |  Product           | Department    | Price   | # in Stock |
