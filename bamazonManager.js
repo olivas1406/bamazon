@@ -67,8 +67,10 @@ function showLow() {
     connection.query("SELECT item_id, product_name, stock_quantity FROM products WHERE stock_quantity < 5", function(err, res)  {  
         
         console.log(`   
-Item # | Product Name       |  Price     | In Stock
+Item # | Product Name     |  Price   | In Stock
                 `);
+
+                //////////////////////////////    'PRICE' COMES THROUGH AS UNDEFINED /////////////////////////
 
        for (var r in res) {
 
@@ -133,7 +135,7 @@ function addProd() {
     },{
         message: "What department does it belong in?",
         type: "input",
-        name: "howMany"
+        name: "deptName"
     },{
         message: "How much does it cost?",
         type: "input",
@@ -145,29 +147,34 @@ function addProd() {
         name: "stock"
     
     
+
+/////////////// UPDATE THIS SECTION TO DEAL WITH EMPTY FIELDS WHEN ADDING A PRODUCT ////////////////////////////
+
     }]).then(function(answer){       
-        if (answer.howMany === "0" || answer.howMany.length === 0) {
+        if (answer.prodName.length === 0) {
             console.log("Please enter a valid quantity")
-            addInv();
+
+
+            //  addProd();                                      // PUT THIS BACK IN
+
+/////////////// UPDATE THIS SECTION TO DEAL WITH EMPTY FIELDS WHEN ADDING A PRODUCT ////////////////////////////
+
+
+
         } else {
-            howMany = answer.howMany;
-            what = answer.what;
+            connection.query('INSERT INTO products SET ?',{
+                product_name: answer.prodName,
+                department_name: answer.deptName,
+                price: answer.price,
+                stock_quantity: answer.stock
 
-
-
-
-
-    var query = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (" + answer.prodName + "," + answer.deptName + "," + answer.price + "," + answer.stock + ")";  
-           
-    
-    console.log(query);                                                        //     REMOVE ME REMOVE ME REMOVE ME REMOVE ME
-
-
-    connection.query(query, function(err,) {   
-        if (err) throw err
-        console.log("Product Added");
-    })
+            }, function(err) {    
+                if (err) throw err
+                console.log("Product Added");    
+            })
         connection.end();
+        }
+    })
 };
 
 
