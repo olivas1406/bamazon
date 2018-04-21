@@ -5,7 +5,7 @@
 [See it in action](https://drive.google.com/file/d/1jWSw4Okq9TIqNhuo36aVn89HmyCer3cN/view?usp=sharing)
 
 | Item ID |  Product           | Department    | Price   | # in Stock |
-|:-------:|:------------------:|:-------------:|:-------:|:----------:|
+|:-------:|:------------------ |:------------- |:-------:|:----------:|
 |  1      | Plumbus	       | Household     | $16     | 15         |
 |  2      | Widget             | Manufacturing | $50     | 3          |
 |  3      | Portal Gun         | Travel        | $525000 | 5          |
