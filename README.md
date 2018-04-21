@@ -1,16 +1,18 @@
-# ->*BAMAZON*<-
+
+<h1 style="text-align: center;" markdown="1">BAMAZON</h1>
 ---
-->Bamazon is a command line application that can handle product ordering and track remaining items in stock.  This is useful for any business that needs to be able to track and update inventory.  To see the application in action, click on the link below.<-
+Bamazon is a command line application that can handle product ordering and track remaining items in stock.  This is useful for any business that needs to be able to track and update inventory.  To see the application in action, click on the link below.
 
 This project was created and is maintained by Daniel Olivas
 
-To get help: 
-me@danielolivas.net
+To get help:<br>
+me@danielolivas.net<br>
 http://danielolivas.net
 
 
 ---
 [See it in action](https://drive.google.com/file/d/1jWSw4Okq9TIqNhuo36aVn89HmyCer3cN/view?usp=sharing)
+<br>
 ---
 
 | Item ID |  Product           | Department    | Price   | # in Stock |
